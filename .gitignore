@@ -1,0 +1,10 @@
+bin/
+*.un~
+*~
+*.pyc
+*.swp
+__pycache__/
+include/
+lib/
+lib64
+pyvenv.cfg
