@@ -1,0 +1,80 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+
+		<title>{% block title %}ЭС Планшеты{% endblock %}</title>
+
+		{# Load the tag library #}
+		{% load bootstrap4 %}
+
+		{# Load CSS and JavaScript #}
+		{% bootstrap_css %}
+
+		{# Display django.contrib.messages as Bootstrap alerts #}
+		{% bootstrap_messages %}
+		<style>
+				.bd-placeholder-img {
+					font-size: 1.125rem;
+					text-anchor: middle;
+					-webkit-user-select: none;
+					-moz-user-select: none;
+					-ms-user-select: none;
+					user-select: none;
+				}
+
+				@media (min-width: 768px) {
+					.bd-placeholder-img-lg {
+						font-size: 3.5rem;
+					}
+				}
+
+				.jumbotron {
+					margin-bottom: 0;
+				}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="bg-dark collapse" id="navbarHeader" style="">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-8 col-md-7 py-4">
+							<h4 class="text-white">О проекте</h4>
+							<p class="text-muted">Данная экспертная система создана в рамках курса "Интеллектуальные системы". Она предназначена для подбора планшетных компьютеров ее клиентам. Система выполняет подбор исходя из правил и знаний внесенных экспертами.</p>
+						</div>
+						<div class="col-sm-4 offset-md-1 py-4">
+							<h4 class="text-white">Контакты</h4>
+							<ul class="list-unstyled">
+								<li><a href="#" class="text-white">Email: kamalov-kamil@outlook.com</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="navbar navbar-dark bg-dark shadow-sm">
+				<div class="container d-flex justify-content-between">
+					<a href="#" class="navbar-brand d-flex align-items-center">
+						<strong>ЭС Планшеты</strong>
+					</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="true" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+				</div>
+			</div>
+		</header>
+
+		<main role="main">{% block content %}{% endblock %}</main>
+
+		<footer class="text-muted">
+			<div class="container">
+				<p class="float-right">
+					<a href="#">К началу страницы</a>
+				</p>
+			</div>
+		</footer>
+		{% bootstrap_javascript jquery='full' %}
+	</body>
+</html>
+
