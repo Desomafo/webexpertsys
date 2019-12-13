@@ -24,3 +24,31 @@ class DialogFormView(FormView):
     template_name = 'core/dialog.html'
     form_class = DialogForm
     
+    def form_valid(self, form):
+        return render()
+
+
+def dialog(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # check whether it's valid:
+        if len(request.session) == 0:
+            request.session['current_prop'] = 1
+            request.session['answers'] = {} 
+            form = DialogForm({'prop_number': 1})
+        else:
+            # create a form instance and populate it with data from the request:
+            form = DialogForm(request.POST)
+
+        if form.is_valid():
+            request.session['answers'].update(request.POST)
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NameForm()
+
+    return render(request, 'name.html', {'form': form})
