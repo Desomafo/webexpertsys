@@ -5,4 +5,5 @@ from . import views
 app_name = 'core'
 urlpatterns = [
     path('', views.IndexListView.as_view(), name='index'),        
+    path('dialog', views.dialog, name='dialog')
 ]

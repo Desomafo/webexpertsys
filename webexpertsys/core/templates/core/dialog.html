@@ -1,12 +1,16 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<form action="/url/to/submit/" method="post" class="form">
+{% load bootstrap4 %}
+<form action="{% url 'core:dialog' %}" method="post" class="form">
   {% csrf_token %}
   {% bootstrap_form form %}
   {% buttons %}
     <button type="submit" class="btn btn-primary">
-      Submit
+      Далее
+    </button>
+    <button type="submit" class="btn" name="reset_session">
+      Начать сначала 
     </button>
   {% endbuttons %}
 </form>

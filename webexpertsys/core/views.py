@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from django.db.models import Max
+
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormView
 
@@ -16,7 +18,7 @@ class IndexListView(ListView):
     context_object_name = 'tablets_list'
     
     def get_queryset(self):
-        return [['First tablet', 'First tablet description with some text, some text, some text, some text, some text'], ['Second tablet', 'Second tablet description with some text, some text, some text, some text, some text'], ['Third tablet', 'Third tablet description with some text, some text, some text, some text, some text'], ['Fourth tablet', 'Fourth tablet description with some text, some text, some text, some text, some text'], ['Fiveth tablet', 'Fiveth tablet description with some text, some text, some text, some text, some text'], ['Sixth tablet', 'Sixth tablet description with some text, some text, some text, some text, some text'], ['Seventh tablet', 'Seventh tablet description with some text, some text, some text, some text, some text'], ['Eighth tablet', 'Eighth tablet description with some text, some text, some text, some text, some text']]
+        return [ [tablet, tablet.get_description()] for tablet in Tablet.objects.all()[:6]] 
 
 
 class DialogFormView(FormView):
@@ -29,26 +31,20 @@ class DialogFormView(FormView):
 
 
 def dialog(request):
+    
+    if 'answers' not in request.session.keys() or \
+       'reset_session' in request.POST:
+        request.session['current_prop'] = 1
+        request.session['answers'] = {} 
+
+
     # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # check whether it's valid:
-        if len(request.session) == 0:
-            request.session['current_prop'] = 1
-            request.session['answers'] = {} 
-            form = DialogForm({'prop_number': 1})
-        else:
-            # create a form instance and populate it with data from the request:
-            form = DialogForm(request.POST)
+    if request.method == 'POST' and 'reset_session' not in request.POST:
+        request.session['answers'].update({Property.objects.get(number=int(request.session['current_prop'])).tablet_property: request.POST['picked_param']})
+        request.session['current_prop'] += 1
 
-        if form.is_valid():
-            request.session['answers'].update(request.POST)
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+    form = DialogForm(request.session)
 
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = NameForm()
+    print(request.session['answers'], request.session['current_prop'])
 
-    return render(request, 'name.html', {'form': form})
+    return render(request, 'core\dialog.html', {'form': form})
