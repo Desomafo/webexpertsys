@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<div class="container">
+		<div class="jumbotron">
+			<ul class="list-group list-group-flush">
+			{% for result in object_list %}
+				<li class="list-group-item"><a href="{% url 'core:tablet_detail' result.pk %}">{{ result }}</a></li>	
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endblock%}

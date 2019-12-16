@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container">
+	<h1>Список присутствующих планшетов</h1>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<td>Планшет</td>
+				<td>ОЗУ</td>
+				<td>Мобильная связь</td>
+			</tr>
+		</thead>
+		<tbody>
+		{% for tablet in tablet_list %}
+				<tr>
+					<td><a href="{% url 'core:tablet_detail' tablet.pk %}">{{ tablet }}</a></td>
+					<td>{{ tablet.ram_capacity }}</td>
+					<td>{{ tablet.cellular }}</td>
+				</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock%}

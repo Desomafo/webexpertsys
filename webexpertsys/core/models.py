@@ -31,10 +31,15 @@ class Tablet(models.Model):
 
     def get_description(self):
         values = [getattr(self, field.name) for field in self._meta.get_fields()]
-        desc = "{}".format(values[0])
-        for value in values[1:]:
+        desc = "{}".format(values[1])
+        for value in values[2:]:
             desc += ", {}".format(value)
         return desc
+
+    def get_specs(self):
+        values = [[field.verbose_name, getattr(self, field.name)] for field in self._meta.get_fields()]
+        return values[1:]
+
 
 class Property(models.Model):
 

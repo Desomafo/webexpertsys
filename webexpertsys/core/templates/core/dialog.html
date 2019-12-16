@@ -2,16 +2,23 @@
 
 {% block content %}
 {% load bootstrap4 %}
-<form action="{% url 'core:dialog' %}" method="post" class="form">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">
-      Далее
-    </button>
-    <button type="submit" class="btn" name="reset_session">
-      Начать сначала 
-    </button>
-  {% endbuttons %}
-</form>
+<div class="container">
+	<div class="jumbotron">
+		<form action="{% url 'core:dialog' %}" method="post" class="form">
+		  {% csrf_token %}
+		  {% bootstrap_form form %}
+		  {% buttons %}
+		    <button type="submit" class="btn btn-primary">
+		      Далее
+		    </button>
+		    <button type="submit" class="btn" name="reset_session">
+		      Начать сначала 
+		    </button>
+		    <button type="submit" class="btn btn-success float-right" name="finish">
+		      Закончить подбор
+		    </button>
+		  {% endbuttons %}
+		</form>
+	</div>
+</div>
 {% endblock %}
